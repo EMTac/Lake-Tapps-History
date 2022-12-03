@@ -13,8 +13,13 @@ var sidebar = L.control.sidebar('sidebar', {
 });
 map.addControl(sidebar);
 
-setTimeout(function () {
-    sidebar.show();
-}, 500);
+var historicLakes = L.geoJSON(Lakes, {
+    onEachFeature: onEachFeature
+}).addTo(map);
 
-L.geoJSON(POI).addTo(map);
+function onEachFeature(feature, layer) {
+    layer.on('click', function() {
+    sidebar.show();
+    sidebar.setContent(feature.properties.Name);
+    });
+}
