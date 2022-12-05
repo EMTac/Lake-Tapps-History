@@ -8,9 +8,9 @@ const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 var marker = L.marker([51.2, 7]).addTo(map);
 
 var sidebar = L.control.sidebar('sidebar', {
-        closeButton: true,
-        position: 'left'
-    });
+    closeButton: true,
+    position: 'left'
+});
 
 sidebar.addTo(map);
 
@@ -32,34 +32,36 @@ var POI = L.geoJSON(POI, {
     onEachFeature: onEachFeature2
 });
 
-var historicLakes = L.geoJSON(Lakes, {
+var historicLakes = L.geoJSON(Lakes2, {
     onEachFeature: onEachFeature,
     opacity: 0.3,
 });
 
-var lakeComparison = L.geoJSON(Lakes, {
+var lakeComparison = L.geoJSON(Lakes2, {
     onEachFeature: onEachFeature,
 });
 
 function onEachFeature(feature, layer) {
+    var img=("<img src="+feature.properties.Img+" width=400px"+">");
     layer.on('click', function() {
     sidebar.show();
-    sidebar.setContent(feature.properties.Name);
+    sidebar.setContent(feature.properties.Name + "<br></br>" + img);
     });
 }
 
 function onEachFeature2(feature, layer) {
     layer.on('click', function() {
     sidebar.show();
-    sidebar.setContent(feature.properties.OBJECTID);
+    sidebar.setContent("hello");
     });
 }
 
 
 
-var lyrOldTapps = L.imageOverlay('resources/Lake_Tapps_1900.png', [[47.5004398, -121.9953424], [46.9971086, -122.5015877]]);
+var lyrOldTapps = L.imageOverlay('resources/Lake_Tapps_1900-min.png', [[47.5004398, -121.9953424], [46.9971086, -122.5015877]]);
 
-var tapps1900 = L.layerGroup([tiles, lyrOldTapps, historicLakes]).addTo(map);
+var tapps = L.layerGroup([tiles]).addTo(map);
+var tapps1900 = L.layerGroup([tiles, lyrOldTapps, historicLakes]);
 var tapps2022 = L.layerGroup([tiles, lakeComparison, POI]);
 
 var baseMaps = {
