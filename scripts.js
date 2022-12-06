@@ -81,7 +81,7 @@ function onEachFeature2(feature, layer) {
     });
 }
 
-var lyrOldTapps = L.imageOverlay('Lake_Tapps_1900-min.png', [[47.5004398, -121.9953424], [46.9971086, -122.5015877]]);
+var lyrOldTapps = L.imageOverlay('resources/Lake_Tapps_1900-min.png', [[47.5004398, -121.9953424], [46.9971086, -122.5015877]]);
 
 var tapps = L.layerGroup([tiles]).addTo(map);
 var tapps1900 = L.layerGroup([tiles, lyrOldTapps, historicLakes, POI1900]);
