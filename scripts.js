@@ -116,7 +116,7 @@ var POI1900 = L.geoJSON(POI_1900, {
 var historicLakes = L.geoJSON(Lakes2, {
     onEachFeature: onEachFeature,
     opacity: 0.3,
-    color: '#6d72f6',
+    color: 'blue',
 });
 
 var initialStyle = {
