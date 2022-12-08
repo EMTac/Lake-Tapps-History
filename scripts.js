@@ -48,6 +48,10 @@ var reservoirOverlay = L.geoJSON(tappsReservoir, {
     style: myStyleReservoir,
 });
 
+var POI2022 = L.geoJSON(POI_2022, {
+    onEachFeature: onEachFeature2,
+})
+
 var POI1911 = L.geoJSON(POI_1911, {
     onEachFeature: onEachFeature2,
 });
@@ -59,17 +63,30 @@ var POI1900 = L.geoJSON(POI_1900, {
 var historicLakes = L.geoJSON(Lakes2, {
     onEachFeature: onEachFeature,
     opacity: 0.3,
+    color: 'blue',
 });
 
+var initialStyle = {
+    "color": 'blue'
+};
+
 var lakeComparison = L.geoJSON(Lakes2, {
-    onEachFeature: onEachFeature,
+    interactive:false,
 });
 
 function onEachFeature(feature, layer) {
     var img=("<img src="+feature.properties.Img+" width=400px"+">");
     layer.on('click', function() {
     sidebar.show();
-    sidebar.setContent(feature.properties.Name + "<br></br>" + img);
+    sidebar.setContent("<h1>"+feature.properties.Name+"</h1>"+img+"<p>"+feature.properties.Caption+"</p>"+"<br></br>"+"<p>"+feature.properties.Description+feature.properties.Description2+feature.properties.Description3+"</p>");
+    });
+    layer.on('mouseover', function() {
+        this.setStyle({
+            color: 'white'
+        });
+    });
+    layer.on('mouseout', function() {
+        this.setStyle(initialStyle)
     });
 }
 
@@ -86,7 +103,7 @@ var lyrOldTapps = L.imageOverlay('resources/Lake_Tapps_1900-min.png', [[47.50043
 var tapps = L.layerGroup([tiles]).addTo(map);
 var tapps1900 = L.layerGroup([tiles, lyrOldTapps, historicLakes, POI1900]);
 var tapps1911 = L.layerGroup([tiles, lyrOldTapps, POI1911, lyrDikes, reservoirOverlay])
-var tapps2022 = L.layerGroup([tiles, lakeComparison, POI1911]);
+var tapps2022 = L.layerGroup([tiles, lakeComparison, POI2022]);
 
 var baseMaps = {
     "1900": tapps1900,
