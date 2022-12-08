@@ -2,4 +2,16 @@
     position: absolute;
     width: 99vw;
     height: 99vh;
- }
+}
+
+.leaflet-control-layers-expanded {
+    display: block;
+    background-color: #c43c3c;
+}
+
+.leaflet-control-layers label {
+    display: block;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+}
